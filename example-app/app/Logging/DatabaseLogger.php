@@ -14,7 +14,7 @@ class DatabaseLogger extends AbstractProcessingHandler
     public function __construct($level)
     {
         parent::__construct($level);
-        $this->table = 'logs_' . date('Y_m_d');
+        $this->table = 'debug_logs_' . date('Y_m_d');
         $this->connection = 'mysql';
     }
 
