@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\BracketsRequest;
 
 class ServiceController extends Controller
 {
@@ -20,7 +21,7 @@ class ServiceController extends Controller
     /**
      * check brackets is closed
      */
-    public function checkBrackets(Request $request){
+    public function checkBrackets(BracketsRequest $request){
         $input = $request->get('s');
         $stack = [];
         $brackets = [
