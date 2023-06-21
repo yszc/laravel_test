@@ -63,3 +63,20 @@ code!=200，其中 trace字段在500s类错误时根据`APP_DEBUG`控制是否�
     debug_logs_yyyy_mm_dd  #为debug日志表，按日期归档（Q3）
     request_logs           #为请求记录表（Q4）
 
+## 测试用例
+
+    curl --location 'https://laravel-example.0x0f.tech/api/test_get?aaa=bbb&cc=dd'
+
+    curl --location 'https://laravel-example.0x0f.tech/api/test_post' \
+    --form 'a="b"' \
+    --form 'c="d"'
+
+    curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s=]'
+
+    curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s={[]()}'
+
+    curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s={//}'
+
+    curl --location 'https://laravel-example.0x0f.tech/api/test_error'
+
+    curl --location 'https://laravel-example.0x0f.tech/api/test_exception'
