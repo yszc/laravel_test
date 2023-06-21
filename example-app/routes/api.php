@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ApiFormatterMiddleware;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,5 +37,12 @@ Route::middleware(ApiFormatterMiddleware::class)->group(function () {
         $c = $a / $b;
     });
 
+    Route::get('/test_log', function(Request $request){
+        return Log::channel('database')->error('This is test');
+    });
+
+    Route::get('/test_db', function(Request $request){
+        return  DB::select('show tables;');
+    });
     
 });

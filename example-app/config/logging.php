@@ -4,6 +4,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
+use App\Logging\DatabaseLogger;
 
 return [
 
@@ -54,7 +55,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single','database'],
             'ignore_exceptions' => false,
         ],
 
@@ -73,6 +74,11 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'database' => [
+            'driver' => 'monolog',
+            'handler' => DatabaseLogger::class,
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
