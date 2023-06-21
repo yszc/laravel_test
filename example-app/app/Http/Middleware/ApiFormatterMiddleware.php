@@ -21,11 +21,11 @@ class ApiFormatterMiddleware
         $status = $response->status();
         
         if ($status >= 300 && $status < 600) {
-            $message = $data['message'] ?? '请求失败';
+            $message = $data['message'] ?? 'internal server error';
             $code = $data['code'] ?? $status;
             $data = null;
         } else {
-            $message = '请求成功';
+            $message = 'ok';
             $code = 200;
         }
         
