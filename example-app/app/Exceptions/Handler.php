@@ -30,20 +30,21 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+        $response = parent::render($request, $exception);
+        $code = $response->getStatusCode();
+        $message = $exception->getMessage();
+
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
             $message = '未找到该记录';
             $code = 404;
-        } else {
-            $message = $exception->getMessage();
-            $code = $exception->getCode() ?: 500;
-        }
+        } 
 
         $res = [
             'code' => $code,
             'message' => $message,
             'data' => null,
         ];
-        if (env('APP_DEBUG')) {
+        if (env('APP_DEBUG') && $code >= 500 && $code < 600) {
             $res['trace'] = $exception->getTrace();
         }
         return response()->json($res, $code);

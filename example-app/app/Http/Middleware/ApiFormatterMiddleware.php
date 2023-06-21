@@ -35,7 +35,7 @@ class ApiFormatterMiddleware
             'data' => $data ?? null,
         ];
         
-        if (env('APP_DEBUG') && $status >= 400 && $status < 600) {
+        if (env('APP_DEBUG') && $status >= 500 && $status < 600) {
             $formattedResponse['trace'] = $response->original['trace'] ?? null;
         }
         
