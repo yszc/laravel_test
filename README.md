@@ -1,6 +1,38 @@
 # Laravel 示例项目
 
+## API规范和结构
 
+正确响应结构
+
+code=200，message=ok
+
+    {
+        "code": 200,
+        "message": "ok",
+        "data": {
+            "health": "good"
+        }
+    }
+
+异常响应结构
+
+code!=200，其中 trace字段在500s类错误时根据`APP_DEBUG`控制是否展示
+
+    // 内部错误类
+    {
+        "code": 500,
+        "message": "exception message",
+        "data": null,
+        "trace": [
+            
+        ]
+    }
+    // 输入错误类
+    {
+        "code": 400,
+        "message": "The s field is required.",
+        "data": null
+    }
 ## API测试清单
 
 ```

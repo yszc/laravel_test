@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware(ApiFormatterMiddleware::class)->group(function () {
     Route::get('/health_check', function (Request $request){
-        return ['health' => 'ok'];
+        return ['health' => 'good'];
     });
 
     Route::get('/test_exception', function (Request $request){
