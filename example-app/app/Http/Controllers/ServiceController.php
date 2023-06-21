@@ -19,32 +19,29 @@ class ServiceController extends Controller
     }
 
     /**
-     * check brackets is closed
+     * return a bool value if brackets is closed
      */
     public function checkBrackets(BracketsRequest $request){
-        $input = $request->get('s');
+        $s = $request->input('s');
+        $s = str_split($s);
         $stack = [];
-        $brackets = [
-            '(' => ')',
-            '[' => ']',
-            '{' => '}',
+        $map = [
+            ')' => '(',
+            ']' => '[',
+            '}' => '{',
         ];
-        $openBrackets = array_keys($brackets);
-        $closeBrackets = array_values($brackets);
-        $inputLength = strlen($input);
-        for ($i = 0; $i < $inputLength; $i++) {
-            $char = $input[$i];
-            if (in_array($char, $openBrackets)) {
-                array_push($stack, $char);
-            } elseif (in_array($char, $closeBrackets)) {
-                $lastOpenBracket = array_pop($stack);
-                if ($brackets[$lastOpenBracket] != $char) {
+        foreach ($s as $key => $value) {
+            if (in_array($value, $map)) {
+                array_push($stack, $value);
+            } else {
+                if (end($stack) == $map[$value]) {
+                    array_pop($stack);
+                } else {
                     return false;
                 }
             }
         }
-        return empty($stack);
-
+        return empty($stack) ? true : false;
     }
 
 }
