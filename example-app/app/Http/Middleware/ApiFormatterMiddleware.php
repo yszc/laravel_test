@@ -20,7 +20,7 @@ class ApiFormatterMiddleware
         $data = $response->original;
         $status = $response->status();
         
-        if ($status >= 400 && $status < 600) {
+        if ($status >= 300 && $status < 600) {
             $message = $data['message'] ?? '请求失败';
             $code = $data['code'] ?? $status;
             $data = null;

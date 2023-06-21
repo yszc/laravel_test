@@ -24,7 +24,16 @@ class BracketsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            's' => 'required|string|max:1000|regex:/^[\[\]{}()]+$/i'
+            's' => 'required|string|max:10000|regex:/^[\[\]{}()]+$/i'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ValidationException($validator, response()->json([
+            'code' => 400,
+            'message' => '参数错误',
+            'data' => null,
+        ], 400));
     }
 }
