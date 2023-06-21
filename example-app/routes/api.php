@@ -44,5 +44,9 @@ Route::middleware(ApiFormatterMiddleware::class)->group(function () {
     Route::get('/test_db', function(Request $request){
         return  DB::select('show tables;');
     });
+
+    Route::get('/test_get', [\App\Http\Controllers\ServiceController::class, 'get']);
+    Route::post('/test_post', [\App\Http\Controllers\ServiceController::class, 'post']);
+    Route::get('/check_brackets', [\App\Http\Controllers\ServiceController::class, 'checkBrackets']);
     
 });
