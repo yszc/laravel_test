@@ -102,10 +102,11 @@ check if the brackets are closed.(Q6)
 #### Test case
 
     curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s=]'
-
+    # false
     curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s={[]()}'
-
+    # true
     curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s={//}'
+    # invalid input
 
 ## PHPMyAdmin
 
@@ -118,5 +119,5 @@ check if the brackets are closed.(Q6)
 
 Table                  | Comment
 -----------------------|-----------------------------
-debug_logs_yyyy_mm_dd  | 为debug日志表，按日期归档（Q3）
-request_logs           |#为请求记录表（Q4）
+debug_logs_yyyy_mm_dd  | debug log, archived by date（Q3）
+request_logs           | request log（Q4）
