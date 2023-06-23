@@ -1,14 +1,14 @@
-# Laravel 示例项目
+# Laravel example project
 
-## 部署域名
+## API Domain
 
     https://laravel-example.0x0f.tech
 
-API示例：[https://laravel-example.0x0f.tech/api/health_check](https://laravel-example.0x0f.tech/api/health_check)
+API example：[https://laravel-example.0x0f.tech/api/health_check](https://laravel-example.0x0f.tech/api/health_check)
 
-## API规范和结构
+## API rule and structure
 
-正确响应结构
+Correct reponse
 
 code=200，message=ok
 
@@ -20,11 +20,11 @@ code=200，message=ok
         }
     }
 
-异常响应结构
+Incorrect response
 
-code!=200，其中 trace字段在500s类错误时根据`APP_DEBUG`控制是否展示
+code!=200，the `trace` will display in code 500s and controled by `APP_DEBUG`
 
-    // 内部错误类
+    // internal error
     {
         "code": 500,
         "message": "exception message",
@@ -33,43 +33,73 @@ code!=200，其中 trace字段在500s类错误时根据`APP_DEBUG`控制是否�
             
         ]
     }
-    // 输入错误类
+
+    // invalid input
     {
         "code": 400,
         "message": "The s field is required.",
         "data": null
     }
-## API测试清单
+## API List
 
-```
-    GET /api/health_check       #健康检查           Q2
-    GET /api/test_exception     #测试异常           Q3
-    GET /api/test_error         #测试运行错误        Q3
+### Health check
 
-    GET /api/test_get           #get请求，返回请求体  Q5.a
-    POST /api/test_post         #post请求，返回请求体 Q5.b
-    GET /api/check_brackets     #检查括号是否闭合     Q6
-```
+Always return a correct response, check if the service can respond normally.(Q2)
 
-## PHPMyAdmin
+    GET /api/health_check       
 
-[https://pma.0x0f.tech](https://pma.0x0f.tech)
+### API for test exception
 
-    user: laravel
-    password: laravel666
+a response example when throw a exception.(Q3)
 
-### 表说明
+    GET /api/test_exception    
 
-    debug_logs_yyyy_mm_dd  #为debug日志表，按日期归档（Q3）
-    request_logs           #为请求记录表（Q4）
+#### Test case
 
-## 测试用例
+    curl --location 'https://laravel-example.0x0f.tech/api/test_exception'
+
+### API for test error
+
+a response while a runtime error occur.(Q3)
+
+    GET /api/test_error         
+
+#### Test case
+
+    curl --location 'https://laravel-example.0x0f.tech/api/test_error'
+### Get API
+
+A get API, response all data that sent by request.(Q5.a)
+
+    GET /api/test_get        
+
+#### Test case
 
     curl --location 'https://laravel-example.0x0f.tech/api/test_get?aaa=bbb&cc=dd'
 
+### Post API
+
+A post API, response all data that sent by request.(Q5.b)
+
+    POST /api/test_post         
+
+#### Test case
     curl --location 'https://laravel-example.0x0f.tech/api/test_post' \
     --form 'a="b"' \
     --form 'c="d"'
+
+### Check brackets
+
+check if the brackets are closed.(Q6)
+
+    GET /api/check_brackets     
+
+
+| Params | Comment |
+|------------- |-------------|
+| s | A string of brackets, length is less than 10000 |
+
+#### Test case
 
     curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s=]'
 
@@ -77,6 +107,16 @@ code!=200，其中 trace字段在500s类错误时根据`APP_DEBUG`控制是否�
 
     curl --location --globoff 'https://laravel-example.0x0f.tech/api/check_brackets?s={//}'
 
-    curl --location 'https://laravel-example.0x0f.tech/api/test_error'
+## PHPMyAdmin
 
-    curl --location 'https://laravel-example.0x0f.tech/api/test_exception'
+[https://pma.0x0f.tech](https://pma.0x0f.tech)
+
+    username: laravel
+    password: laravel666
+
+### Table map
+
+Table                  | Comment
+-----------------------|-----------------------------
+debug_logs_yyyy_mm_dd  | 为debug日志表，按日期归档（Q3）
+request_logs           |#为请求记录表（Q4）
